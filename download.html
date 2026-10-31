@@ -1,317 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZenOS | Downloads</title>
-    <link href="https://fonts.cdnfonts.com/css/product-sans" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #000000;
-            --card-bg: #080808;
-            --border: rgba(255, 255, 255, 0.08);
-            --accent-gray: #e0e0e0;
-            --text-main: #ffffff;
-            --text-dim: #ffffff;
-            --nav-bg: rgba(10, 10, 10, 0.7);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenOS | Downloads</title>
+<meta name="description" content="Download ZenOS for your device. Search by device name or codename.">
+<meta name="theme-color" content="#000000">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Product Sans', sans-serif !important; }
-        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,100..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet">
 
-        nav {
-            position: fixed;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1100px;
-            z-index: 1000;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 10px 35px;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-        }
+<script>
+  /* Set theme before first paint (shared with the home page) */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    var t = null;
+    try { t = localStorage.getItem('zen-theme'); } catch (e) {}
+    if (!t) t = 'dark';
+    d.setAttribute('data-theme', t);
+  })();
+</script>
 
-        .nav-left { display: flex; justify-content: flex-start; }
-        .back-home { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; transition: 0.3s; }
-        .back-home:hover { color: white; }
+<style>
+/* ============================================================
+   ZenOS Downloads — Material 3 Expressive (black & white)
+   ============================================================ */
 
-        .logo-nav { display: flex; justify-content: center; align-items: center; }
-        .logo-nav img { height: 32px; width: auto; }
+:root {
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --emph: cubic-bezier(.05, .7, .1, 1);
+  --std: cubic-bezier(.2, 0, 0, 1);
 
-        .nav-right { display: flex; justify-content: flex-end; }
+  --surface: #000000;
+  --surface-low: #050505;
+  --surface-container: #080808;
+  --surface-high: #111111;
+  --surface-highest: #1a1a1a;
+  --on-surface: #ffffff;
+  --on-surface-variant: #9a9a9a;
+  --outline: #5c5c5c;
+  --outline-variant: rgba(255, 255, 255, .12);
 
-        header { text-align: center; padding: 180px 20px 40px; }
-        h1 { font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; letter-spacing: -1.5px; }
-        h1 span { color: var(--text-dim); font-weight: 400; }
+  --primary: #ffffff;
+  --on-primary: #000000;
+  --primary-container: #1a1a1a;
+  --on-primary-container: #ffffff;
 
-        .search-box { max-width: 500px; margin: 30px auto; position: relative; }
-        .search-box input {
-            width: 100%;
-            padding: 18px 30px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.03);
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-        }
-        .search-box input:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
+  --secondary: #cfcfcf;
+  --on-secondary: #000000;
+  --secondary-container: #242424;
+  --on-secondary-container: #ffffff;
 
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 60px;
-            flex-wrap: wrap;
-            padding: 0 5%;
-        }
-        .filter-btn {
-            padding: 10px 22px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text-dim);
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-        }
-        .filter-btn.active { background: white; color: black; border-color: white; }
-        .filter-btn:hover:not(.active) { border-color: white; color: white; }
+  --tertiary: #9a9a9a;
+  --on-tertiary: #000000;
+  --tertiary-container: #141414;
+  --on-tertiary-container: #ffffff;
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 0 5% 100px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+  --glow: radial-gradient(circle at top, #111111 0%, #000000 70%);
+}
+:root[data-theme="light"] {
+  --surface: #ffffff;
+  --surface-low: #f7f7f7;
+  --surface-container: #f1f1f1;
+  --surface-high: #e9e9e9;
+  --surface-highest: #dfdfdf;
+  --on-surface: #0a0a0a;
+  --on-surface-variant: #5a5a5a;
+  --outline: #8a8a8a;
+  --outline-variant: rgba(0, 0, 0, .14);
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 40px 30px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 450px;
-            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); background: #0c1016; }
-        .card.hidden { display: none; }
-        
-        .card img { height: 180px; width: auto; max-width: 100%; object-fit: contain; margin-bottom: 25px; }
-        
-        .device-name { font-size: 1.3rem; font-weight: 400; color: white; margin-bottom: 5px; }
-        .codename { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 30px; display: block; font-family: monospace; opacity: 0.6; }
+  --primary: #000000;
+  --on-primary: #ffffff;
+  --primary-container: #ececec;
+  --on-primary-container: #000000;
 
-        .btn-download {
-            width: 100%;
-            padding: 14px;
-            background: white;
-            color: black;
-            text-decoration: none;
-            border-radius: 16px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .btn-download:hover { transform: scale(1.02); background: #f0f0f0; }
+  --secondary: #3a3a3a;
+  --on-secondary: #ffffff;
+  --secondary-container: #e2e2e2;
+  --on-secondary-container: #000000;
 
+  --tertiary: #5a5a5a;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #f0f0f0;
+  --on-tertiary-container: #000000;
 
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        .modal-content {
-            background: #0a0a0a;
-            border: 1px solid var(--border);
-            padding: 50px 40px;
-            border-radius: 32px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transform: scale(0.9);
-            transition: 0.3s;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-overlay.active .modal-content { transform: scale(1); }
-        .modal-content h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .btn-close {
-            padding: 12px 40px;
-            background: white; color: black;
-            border: none; border-radius: 50px;
-            font-weight: bold; cursor: pointer; margin-top: 20px;
-        }
+  --glow: radial-gradient(circle at top, #f0f0f0 0%, #ffffff 70%);
+}
+:root[data-theme="light"] .invert-light { filter: invert(1); }
 
-        footer { text-align: center; padding: 60px; color: #444; border-top: 1px solid var(--border); font-size: 0.8rem; }
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Roboto Flex', 'Product Sans', system-ui, sans-serif;
+  background: var(--surface); color: var(--on-surface);
+  -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.5;
+  transition: background-color .4s var(--std), color .4s var(--std);
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; border-radius: 12px; }
 
-        @media (max-width: 900px) { 
-            .nav-left { display: none; } 
-            nav { grid-template-columns: 1fr 1fr; }
-            h1 { font-size: 2.5rem; }
-        }
-    </style>
+.ms {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+  letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  -webkit-font-smoothing: antialiased; flex-shrink: 0; user-select: none;
+}
+.ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+.wrap { width: min(1280px, calc(100% - 40px)); margin-inline: auto; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  height: 56px; padding: 0 32px; border: 0; border-radius: 999px;
+  font: inherit; font-size: 1rem; font-weight: 600; letter-spacing: .01em;
+  cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent;
+  transition: border-radius .45s var(--spring), transform .45s var(--spring), box-shadow .3s var(--std), background-color .3s;
+}
+.btn::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.btn:hover::before { opacity: .09; }
+.btn:active::before { opacity: .14; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { border-radius: 18px; transform: scale(.96); }
+.btn.sm { height: 44px; padding: 0 22px; font-size: .9rem; }
+.btn-filled { background: var(--primary); color: var(--on-primary); box-shadow: 0 6px 24px -10px color-mix(in srgb, var(--primary) 45%, transparent); }
+.btn-tonal { background: var(--secondary-container); color: var(--on-secondary-container); }
+
+.icon-btn {
+  position: relative; width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center; border: 0; cursor: pointer;
+  background: transparent; color: var(--on-surface-variant);
+  transition: border-radius .4s var(--spring), transform .4s var(--spring), background-color .2s;
+}
+.icon-btn:hover { background: color-mix(in srgb, var(--on-surface) 9%, transparent); }
+.icon-btn:active { border-radius: 14px; transform: scale(.92); }
+
+/* ---------- Top app bar ---------- */
+nav.topbar {
+  position: fixed; z-index: 100; top: 16px; left: 0; right: 0; margin-inline: auto;
+  width: min(1120px, calc(100% - 28px));
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 8px 8px 8px 14px; border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-high) 72%, transparent);
+  backdrop-filter: blur(22px) saturate(1.5); -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--outline-variant) 70%, transparent);
+  transition: box-shadow .4s var(--std), background-color .4s;
+}
+nav.topbar.scrolled { box-shadow: inset 0 0 0 1px var(--outline-variant), 0 14px 40px -16px rgba(0, 0, 0, .55); }
+.nav-left { display: flex; justify-content: flex-start; }
+.back-home {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px 0 14px;
+  border-radius: 999px; font-size: .9rem; font-weight: 500; color: var(--on-surface-variant);
+  transition: background-color .25s, color .25s, border-radius .4s var(--spring), transform .4s var(--spring);
+}
+.back-home .ms { font-size: 20px; transition: transform .4s var(--spring); }
+.back-home:hover { background: color-mix(in srgb, var(--on-surface) 9%, transparent); color: var(--on-surface); }
+.back-home:hover .ms { transform: translateX(-4px); }
+.logo-nav { display: flex; justify-content: center; align-items: center; padding-inline: 12px; }
+.logo-nav img { height: 32px; width: auto; transition: transform .5s var(--spring); }
+.logo-nav:hover img { transform: scale(1.08) rotate(-4deg); }
+.nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
+
+/* ---------- Shapes & decor ---------- */
+.blob { position: absolute; pointer-events: none; z-index: 0; border-radius: 50%; animation: morph 14s ease-in-out infinite, drift 18s ease-in-out infinite; }
+@keyframes morph { 0%, 100% { clip-path: var(--shape-2, none); } 33% { clip-path: var(--shape-1, none); } 66% { clip-path: var(--shape-3, none); } }
+@keyframes drift { 0%, 100% { transform: translate(0, 0) rotate(0); } 50% { transform: translate(14px, -22px) rotate(40deg); } }
+@keyframes twinkle { 0%, 100% { transform: scale(1) rotate(0); opacity: .55; } 50% { transform: scale(1.35) rotate(90deg); opacity: 1; } }
+.star { position: absolute; pointer-events: none; z-index: 1; animation: twinkle 5s var(--std) infinite; }
+
+/* ---------- Header ---------- */
+header.page-head {
+  position: relative; isolation: isolate; overflow: hidden; text-align: center;
+  padding: 170px 0 36px; background: var(--glow);
+}
+header .wrap { position: relative; z-index: 2; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 16px 0 12px; margin-bottom: 22px;
+  border-radius: 999px; background: var(--tertiary-container); color: var(--on-tertiary-container);
+  font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: inset 0 0 0 1px var(--outline-variant);
+}
+.eyebrow .ms { font-size: 18px; }
+h1.display {
+  font-size: clamp(3rem, 10vw, 7rem); line-height: .95; letter-spacing: -.035em;
+  font-variation-settings: 'wdth' 118, 'wght' 850, 'opsz' 144;
+}
+h1.display span { color: var(--outline); }
+.sub { max-width: 560px; margin: 22px auto 0; color: var(--on-surface-variant); font-size: 1.1rem; }
+
+/* ---------- Search ---------- */
+.search {
+  position: relative; display: flex; align-items: center; gap: 6px;
+  max-width: 620px; height: 64px; margin: 40px auto 26px; padding: 0 10px 0 22px;
+  border-radius: 999px; background: var(--surface-high);
+  box-shadow: inset 0 0 0 1px var(--outline-variant);
+  transition: box-shadow .3s var(--std), background-color .3s, transform .5s var(--spring);
+}
+.search:focus-within { box-shadow: inset 0 0 0 2px var(--primary); background: var(--surface-highest); transform: scale(1.02); }
+.search .ms { color: var(--on-surface-variant); }
+.search input {
+  flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent;
+  color: var(--on-surface); font: inherit; font-size: 1.05rem;
+}
+.search input::placeholder { color: var(--on-surface-variant); opacity: .8; }
+.search .clear { visibility: hidden; opacity: 0; transform: scale(.6); }
+.search.has-text .clear { visibility: visible; opacity: 1; transform: none; }
+
+/* ---------- Filter chips ---------- */
+.filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.filter-btn {
+  display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 18px;
+  border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--surface-high); color: var(--on-surface-variant);
+  font: inherit; font-size: .88rem; font-weight: 600; letter-spacing: .02em;
+  box-shadow: inset 0 0 0 1px var(--outline-variant);
+  transition: border-radius .45s var(--spring), transform .45s var(--spring), background-color .25s, color .25s, padding .3s var(--spring);
+}
+.filter-btn .ms { font-size: 0; width: 0; opacity: 0; transition: font-size .3s var(--spring), width .3s var(--spring), opacity .2s; }
+.filter-btn .n { font-size: .72rem; opacity: .6; font-weight: 700; }
+.filter-btn:hover:not(.active) { background: var(--surface-highest); color: var(--on-surface); transform: translateY(-2px); }
+.filter-btn:active { transform: scale(.95); }
+.filter-btn.active { background: var(--primary); color: var(--on-primary); border-radius: 999px; padding: 0 20px 0 14px; box-shadow: none; }
+.filter-btn.active .ms { font-size: 18px; width: 18px; opacity: 1; }
+
+.status { margin: 28px auto 0; color: var(--on-surface-variant); font-size: .9rem; font-weight: 500; }
+
+/* ---------- Device grid ---------- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 24px 0 100px; }
+.card {
+  position: relative; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+  gap: 24px; min-height: 430px; padding: 28px 24px 24px; text-align: center;
+  background: var(--surface-container); box-shadow: inset 0 0 0 1px var(--outline-variant);
+  border-radius: 36px;
+  transition: transform .6s var(--spring), border-radius .6s var(--spring), background-color .3s;
+}
+.card:nth-child(4n+1) { border-radius: 48px 22px 48px 22px; }
+.card:nth-child(4n+3) { border-radius: 22px 48px 22px 48px; }
+.card:hover { transform: translateY(-8px); border-radius: 52px; background: var(--surface-high); }
+.card.hidden { display: none; }
+.card.pop { animation: pop .65s var(--spring) backwards; animation-delay: var(--d, 0ms); }
+@keyframes pop { from { opacity: 0; transform: translateY(26px) scale(.94); } }
+
+.card-top { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.art {
+  position: relative; width: 100%; height: 210px; display: grid; place-items: center; margin-bottom: 20px;
+}
+.art::before {
+  content: ""; position: absolute; width: 190px; height: 190px;
+  background: var(--surface-highest); border-radius: 50%; clip-path: var(--s, none);
+  transition: transform 1s var(--spring);
+}
+.card:hover .art::before { transform: rotate(40deg) scale(1.1); }
+.art img {
+  position: relative; height: 180px; width: auto; max-width: 100%; object-fit: contain;
+  transition: transform .7s var(--spring); filter: drop-shadow(0 18px 18px rgba(0, 0, 0, .35));
+}
+.card:hover .art img { transform: translateY(-6px) scale(1.06); }
+.device-name { font-size: 1.3rem; line-height: 1.2; letter-spacing: -.01em; font-weight: 700; font-variation-settings: 'wdth' 105, 'wght' 700; margin-bottom: 10px; }
+.codename {
+  display: inline-block; padding: 4px 12px; border-radius: 999px;
+  background: var(--secondary-container); color: var(--on-secondary-container);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: .8rem; opacity: .9;
+}
+.card .btn { width: 100%; height: 52px; font-size: .95rem; }
+
+/* ---------- Empty state ---------- */
+.empty { display: none; text-align: center; padding: 40px 0 120px; }
+.empty.show { display: block; animation: pop .6s var(--spring); }
+.empty .badge {
+  width: 112px; height: 112px; margin: 0 auto 24px; display: grid; place-items: center;
+  background: var(--secondary-container); color: var(--on-secondary-container);
+  clip-path: var(--shape-2, none); border-radius: 50%;
+}
+.empty .badge .ms { font-size: 44px; }
+.empty h3 { font-size: 1.8rem; letter-spacing: -.02em; margin-bottom: 8px; font-variation-settings: 'wdth' 108, 'wght' 750; }
+.empty p { color: var(--on-surface-variant); margin-bottom: 26px; }
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px;
+  background: rgba(0, 0, 0, .6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .3s var(--std), visibility .3s;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+.modal-content {
+  width: min(420px, 100%); padding: 44px 32px 32px; text-align: center;
+  background: var(--surface-high); color: var(--on-surface);
+  border-radius: 56px 28px 56px 28px; box-shadow: inset 0 0 0 1px var(--outline-variant), 0 40px 80px -30px rgba(0, 0, 0, .8);
+  transform: scale(.8) translateY(30px); transition: transform .6s var(--spring);
+}
+.modal-overlay.active .modal-content { transform: none; }
+.modal-badge {
+  width: 96px; height: 96px; margin: 0 auto 24px; display: grid; place-items: center;
+  background: var(--primary); color: var(--on-primary);
+  clip-path: var(--shape-2, none); border-radius: 50%; animation: spin 14s linear infinite;
+}
+.modal-badge .ms { font-size: 40px; animation: spin 14s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.modal-content h2 { font-size: 3rem; line-height: 1; letter-spacing: -.03em; margin-bottom: 14px; font-variation-settings: 'wdth' 118, 'wght' 850, 'opsz' 144; }
+.modal-content p { color: var(--on-surface-variant); margin-bottom: 28px; }
+.modal-content .btn { width: 100%; }
+
+/* ---------- Footer ---------- */
+footer { padding: 50px 20px 60px; text-align: center; border-top: 1px solid var(--outline-variant); }
+footer p { color: var(--outline); font-size: .85rem; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .back-home { width: 48px; height: 48px; padding: 0; justify-content: center; }
+  .back-home span.t { display: none; }
+  .back-home .ms { font-size: 24px; }
+}
+@media (max-width: 700px) {
+  header.page-head { padding-top: 140px; }
+  .filters { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin-inline: -20px; padding: 4px 20px; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter-btn { flex-shrink: 0; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card { min-height: 360px; padding: 20px 14px 14px; gap: 16px; border-radius: 32px !important; }
+  .art { height: 150px; margin-bottom: 12px; }
+  .art::before { width: 140px; height: 140px; }
+  .art img { height: 130px; }
+  .device-name { font-size: 1.05rem; }
+  .codename { font-size: .72rem; }
+  .card .btn { height: 46px; padding: 0 12px; font-size: .85rem; }
+}
+@media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-left">
-            <a href="index.html" class="back-home">← Back to Home</a>
-        </div>
-        <div class="logo-nav"><img src="logo.png" alt="ZenOS"></div>
-        <div class="nav-right">
-            </div>
-    </nav>
+<!-- ============ Top app bar ============ -->
+<nav class="topbar" id="topbar" aria-label="Main">
+  <div class="nav-left">
+    <a href="index.html" class="back-home" aria-label="Back to Home"><span class="ms">arrow_back</span><span class="t">Back to Home</span></a>
+  </div>
+  <a class="logo-nav" href="index.html" aria-label="ZenOS home"><img class="invert-light" src="logo.png" alt="ZenOS"></a>
+  <div class="nav-right">
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle light / dark theme"><span class="ms" id="themeIcon">light_mode</span></button>
+  </div>
+</nav>
 
-    <header>
-        <h1>ZenOS <span>Downloads</span></h1>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search device or codename...">
-        </div>
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="google">Google</button>
-            <button class="filter-btn" data-filter="samsung">Samsung</button>
-            <button class="filter-btn" data-filter="xiaomi">Xiaomi</button>
-            <button class="filter-btn" data-filter="redmi">Redmi</button>
-            <button class="filter-btn" data-filter="nothing">Nothing</button>
-        </div>
-    </header>
+<!-- ============ Header ============ -->
+<header class="page-head">
+  <div class="blob" style="width:min(40vw,400px);height:min(40vw,400px);top:6%;left:-10%;background:var(--primary-container)"></div>
+  <div class="blob" style="width:min(28vw,280px);height:min(28vw,280px);top:12%;right:-6%;background:var(--surface-high);animation-delay:-6s"></div>
+  <img src="star.png" class="star invert-light" alt="" style="top:30%;left:12%;width:18px">
+  <img src="star.png" class="star invert-light" alt="" style="top:26%;right:16%;width:14px;animation-delay:-2s">
 
-    <div class="grid" id="deviceGrid">
-        <div class="card" data-brand="google"><div class="card-top"><img src="sunfish.webp"><h3 class="device-name">Pixel 4a</h3><span class="codename">sunfish</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="bramble.webp"><h3 class="device-name">Pixel 4a 5G</h3><span class="codename">bramble</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="redfin.webp"><h3 class="device-name">Pixel 5</h3><span class="codename">redfin</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="barbet.webp"><h3 class="device-name">Pixel 5a</h3><span class="codename">barbet</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="oriole.webp"><h3 class="device-name">Pixel 6</h3><span class="codename">oriole</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="raven.webp"><h3 class="device-name">Pixel 6 Pro</h3><span class="codename">raven</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="bluejay.webp"><h3 class="device-name">Pixel 6a</h3><span class="codename">bluejay</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="panther.webp"><h3 class="device-name">Pixel 7</h3><span class="codename">panther</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="cheetah.webp"><h3 class="device-name">Pixel 7 Pro</h3><span class="codename">cheetah</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="lynx.webp"><h3 class="device-name">Pixel 7a</h3><span class="codename">lynx</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="felix.webp"><h3 class="device-name">Pixel Fold</h3><span class="codename">felix</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="shiba.webp"><h3 class="device-name">Pixel 8</h3><span class="codename">shiba</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="husky.webp"><h3 class="device-name">Pixel 8 Pro</h3><span class="codename">husky</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="akita.webp"><h3 class="device-name">Pixel 8a</h3><span class="codename">akita</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="tokay.webp"><h3 class="device-name">Pixel 9</h3><span class="codename">tokay</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="caiman.webp"><h3 class="device-name">Pixel 9 Pro</h3><span class="codename">caiman</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="komodo.webp"><h3 class="device-name">Pixel 9 Pro XL</h3><span class="codename">komodo</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="google"><div class="card-top"><img src="comet.webp"><h3 class="device-name">Pixel 9 Pro Fold</h3><span class="codename">comet</span></div><a class="btn-download">Download</a></div>
+  <div class="wrap">
+    <span class="eyebrow"><span class="ms fill">smartphone</span>Supported devices</span>
+    <h1 class="display">ZenOS <span>Downloads</span></h1>
+    <p class="sub">Find your device by name or codename and grab your build.</p>
 
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="beyond1lte.webp"><h3 class="device-name">Galaxy S10</h3><span class="codename">beyond1lte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="beyondx.webp"><h3 class="device-name">Galaxy S10 5G</h3><span class="codename">beyondx</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="beyond2lte.webp"><h3 class="device-name">Galaxy S10+</h3><span class="codename">beyond2lte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="beyond0lte.webp"><h3 class="device-name">Galaxy S10e</h3><span class="codename">beyond0lte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="d1.webp"><h3 class="device-name">Galaxy Note 10</h3><span class="codename">d1</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="d2s.webp"><h3 class="device-name">Galaxy Note 10+</h3><span class="codename">d2s</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="star.webp"><h3 class="device-name">Galaxy S9</h3><span class="codename">star</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="star2lte.webp"><h3 class="device-name">Galaxy S9+</h3><span class="codename">star2lte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="crownlte.webp"><h3 class="device-name">Galaxy Note 9</h3><span class="codename">crownlte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="dreamlte.webp"><h3 class="device-name">Galaxy S8</h3><span class="codename">dreamlte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="dream2lte.webp"><h3 class="device-name">Galaxy S8+</h3><span class="codename">dream2lte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="greatlte.webp"><h3 class="device-name">Galaxy Note 8</h3><span class="codename">greatlte</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="a52sxq.webp"><h3 class="device-name">Galaxy A52s 5G</h3><span class="codename">a52sxq</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="a51.webp"><h3 class="device-name">Galaxy A51</h3><span class="codename">a51</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="samsung"><div class="card-top"><img src="a71.webp"><h3 class="device-name">Galaxy A71</h3><span class="codename">a71</span></div><a class="btn-download">Download</a></div>
-
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="dipper.webp"><h3 class="device-name">Xiaomi Mi 8</h3><span class="codename">dipper</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="cepheus.webp"><h3 class="device-name">Xiaomi Mi 9</h3><span class="codename">cepheus</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="davinci.webp"><h3 class="device-name">Xiaomi Mi 9T</h3><span class="codename">davinci</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="raphael.webp"><h3 class="device-name">Xiaomi Mi 9T Pro</h3><span class="codename">raphael</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="umi.webp"><h3 class="device-name">Xiaomi Mi 10</h3><span class="codename">umi</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="venus.webp"><h3 class="device-name">Xiaomi Mi 11</h3><span class="codename">venus</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="cupid.webp"><h3 class="device-name">Xiaomi 12</h3><span class="codename">cupid</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="agate.webp"><h3 class="device-name">Xiaomi 11T</h3><span class="codename">agate</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="xiaomi"><div class="card-top"><img src="daisy.webp"><h3 class="device-name">Mi A2 Lite</h3><span class="codename">daisy</span></div><a class="btn-download">Download</a></div>
-
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="begonia.webp"><h3 class="device-name">Redmi Note 8 Pro</h3><span class="codename">begonia</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="lancelot.webp"><h3 class="device-name">Redmi 9</h3><span class="codename">lancelot</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="sweet.webp"><h3 class="device-name">Redmi Note 10 Pro</h3><span class="codename">sweet</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="spes.webp"><h3 class="device-name">Redmi Note 11</h3><span class="codename">spes</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="veux.webp"><h3 class="device-name">Redmi Note 11 Pro</h3><span class="codename">veux</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="topas.webp"><h3 class="device-name">Redmi Note 12 4G</h3><span class="codename">topas</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="sapphire.webp"><h3 class="device-name">Redmi Note 13 4G</h3><span class="codename">sapphire</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="marble.webp"><h3 class="device-name">Poco F5</h3><span class="codename">marble</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="vayu.webp"><h3 class="device-name">Poco X3 Pro</h3><span class="codename">vayu</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="redmi"><div class="card-top"><img src="miatoll.webp"><h3 class="device-name">Redmi Note 9 Pro</h3><span class="codename">miatoll</span></div><a class="btn-download">Download</a></div>
-
-        <div class="card" data-brand="nothing"><div class="card-top"><img src="spacewar.webp"><h3 class="device-name">Nothing Phone (1)</h3><span class="codename">spacewar</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="nothing"><div class="card-top"><img src="pong.webp"><h3 class="device-name">Nothing Phone (2)</h3><span class="codename">pong</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="nothing"><div class="card-top"><img src="pacman.webp"><h3 class="device-name">Nothing Phone (2a)</h3><span class="codename">pacman</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="nothing"><div class="card-top"><img src="metroid.webp"><h3 class="device-name">Nothing Phone (3)</h3><span class="codename">metroid</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="nothing"><div class="card-top"><img src="asteroids.webp"><h3 class="device-name">Nothing Phone (3a)</h3><span class="codename">asteroids</span></div><a class="btn-download">Download</a></div>
-        <div class="card" data-brand="nothing"><div class="card-top"><img src="galaxian.webp"><h3 class="device-name">Nothing Phone (3a) Lite</h3><span class="codename">galaxian</span></div><a class="btn-download">Download</a></div>
-    </div>
-    
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <h2>Soon!</h2>
-            <p>ZenOS builds for this device are currently being compiled. Stay tuned!</p>
-            <button class="btn-close" id="btnClose">Awesome</button>
-        </div>
+    <div class="search" id="searchWrap">
+      <span class="ms" aria-hidden="true">search</span>
+      <input type="text" id="searchInput" placeholder="Search device or codename..." autocomplete="off" aria-label="Search device or codename">
+      <button class="icon-btn clear" id="clearBtn" type="button" aria-label="Clear search"><span class="ms">close</span></button>
     </div>
 
-    <footer><p>Copyright © 2026 ZenROM - All Rights Reserved.</p></footer>
+    <div class="filters" id="filters" role="group" aria-label="Filter by brand">
+      <button class="filter-btn active" data-filter="all"><span class="ms">check</span>All <span class="n"></span></button>
+      <button class="filter-btn" data-filter="google"><span class="ms">check</span>Google <span class="n"></span></button>
+      <button class="filter-btn" data-filter="samsung"><span class="ms">check</span>Samsung <span class="n"></span></button>
+      <button class="filter-btn" data-filter="xiaomi"><span class="ms">check</span>Xiaomi <span class="n"></span></button>
+      <button class="filter-btn" data-filter="redmi"><span class="ms">check</span>Redmi <span class="n"></span></button>
+      <button class="filter-btn" data-filter="nothing"><span class="ms">check</span>Nothing <span class="n"></span></button>
+    </div>
 
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.card');
-        const modal = document.getElementById('modalOverlay');
-        const btnClose = document.getElementById('btnClose');
+    <p class="status" id="status" aria-live="polite"></p>
+  </div>
+</header>
 
-        function applyFilters() {
-            const query = searchInput.value.toLowerCase();
-            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                const brand = card.getAttribute('data-brand');
-                const matchesSearch = text.includes(query);
-                const matchesBrand = activeFilter === 'all' || brand === activeFilter;
-                card.classList.toggle('hidden', !(matchesSearch && matchesBrand));
-            });
-        }
+<!-- ============ Devices ============ -->
+<main class="wrap">
+  <div class="grid" id="deviceGrid"></div>
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                applyFilters();
-            });
-        });
+  <div class="empty" id="empty">
+    <div class="badge"><span class="ms">search_off</span></div>
+    <h3>No devices found</h3>
+    <p>Try another name or codename, or clear the filters.</p>
+    <button class="btn btn-tonal" id="resetBtn" type="button"><span class="ms">restart_alt</span>Reset filters</button>
+  </div>
+</main>
 
-        searchInput.addEventListener('input', applyFilters);
+<!-- ============ "Soon" dialog ============ -->
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-badge"><span class="ms fill">hourglass_top</span></div>
+    <h2 id="modalTitle">Soon!</h2>
+    <p>ZenOS builds for this device are currently being compiled. Stay tuned!</p>
+    <button class="btn btn-filled" id="btnClose" type="button">Awesome</button>
+  </div>
+</div>
 
-        document.querySelectorAll('.btn-download').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.classList.add('active');
-            });
-        });
+<footer><p>Copyright © 2026 ZenROM - All Rights Reserved.</p></footer>
 
-        btnClose.addEventListener('click', () => modal.classList.remove('active'));
-        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-    </script>
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* ---- Device list: [brand, name, codename] — image is <codename>.webp ----
+     To add a device, add one line here and drop <codename>.webp next to this page. */
+  var DEVICES = [
+    ['google', 'Pixel 4a', 'sunfish'], ['google', 'Pixel 4a 5G', 'bramble'], ['google', 'Pixel 5', 'redfin'],
+    ['google', 'Pixel 5a', 'barbet'], ['google', 'Pixel 6', 'oriole'], ['google', 'Pixel 6 Pro', 'raven'],
+    ['google', 'Pixel 6a', 'bluejay'], ['google', 'Pixel 7', 'panther'], ['google', 'Pixel 7 Pro', 'cheetah'],
+    ['google', 'Pixel 7a', 'lynx'], ['google', 'Pixel Fold', 'felix'], ['google', 'Pixel 8', 'shiba'],
+    ['google', 'Pixel 8 Pro', 'husky'], ['google', 'Pixel 8a', 'akita'], ['google', 'Pixel 9', 'tokay'],
+    ['google', 'Pixel 9 Pro', 'caiman'], ['google', 'Pixel 9 Pro XL', 'komodo'], ['google', 'Pixel 9 Pro Fold', 'comet'],
+
+    ['samsung', 'Galaxy S10', 'beyond1lte'], ['samsung', 'Galaxy S10 5G', 'beyondx'], ['samsung', 'Galaxy S10+', 'beyond2lte'],
+    ['samsung', 'Galaxy S10e', 'beyond0lte'], ['samsung', 'Galaxy Note 10', 'd1'], ['samsung', 'Galaxy Note 10+', 'd2s'],
+    ['samsung', 'Galaxy S9', 'star'], ['samsung', 'Galaxy S9+', 'star2lte'], ['samsung', 'Galaxy Note 9', 'crownlte'],
+    ['samsung', 'Galaxy S8', 'dreamlte'], ['samsung', 'Galaxy S8+', 'dream2lte'], ['samsung', 'Galaxy Note 8', 'greatlte'],
+    ['samsung', 'Galaxy A52s 5G', 'a52sxq'], ['samsung', 'Galaxy A51', 'a51'], ['samsung', 'Galaxy A71', 'a71'],
+
+    ['xiaomi', 'Xiaomi Mi 8', 'dipper'], ['xiaomi', 'Xiaomi Mi 9', 'cepheus'], ['xiaomi', 'Xiaomi Mi 9T', 'davinci'],
+    ['xiaomi', 'Xiaomi Mi 9T Pro', 'raphael'], ['xiaomi', 'Xiaomi Mi 10', 'umi'], ['xiaomi', 'Xiaomi Mi 11', 'venus'],
+    ['xiaomi', 'Xiaomi 12', 'cupid'], ['xiaomi', 'Xiaomi 11T', 'agate'], ['xiaomi', 'Mi A2 Lite', 'daisy'],
+
+    ['redmi', 'Redmi Note 8 Pro', 'begonia'], ['redmi', 'Redmi 9', 'lancelot'], ['redmi', 'Redmi Note 10 Pro', 'sweet'],
+    ['redmi', 'Redmi Note 11', 'spes'], ['redmi', 'Redmi Note 11 Pro', 'veux'], ['redmi', 'Redmi Note 12 4G', 'topas'],
+    ['redmi', 'Redmi Note 13 4G', 'sapphire'], ['redmi', 'Poco F5', 'marble'], ['redmi', 'Poco X3 Pro', 'vayu'],
+    ['redmi', 'Redmi Note 9 Pro', 'miatoll'],
+
+    ['nothing', 'Nothing Phone (1)', 'spacewar'], ['nothing', 'Nothing Phone (2)', 'pong'],
+    ['nothing', 'Nothing Phone (2a)', 'pacman'], ['nothing', 'Nothing Phone (3)', 'metroid'],
+    ['nothing', 'Nothing Phone (3a)', 'asteroids'], ['nothing', 'Nothing Phone (3a) Lite', 'galaxian']
+  ];
+
+  /* ---- Expressive shapes ---- */
+  function poly(lobes, amp, rot, pts) {
+    var out = [];
+    for (var i = 0; i < pts; i++) {
+      var t = (i / pts) * Math.PI * 2;
+      var r = 1 - amp + amp * Math.cos(lobes * t + rot);
+      out.push((50 + 50 * r * Math.cos(t)).toFixed(2) + '% ' + (50 + 50 * r * Math.sin(t)).toFixed(2) + '%');
+    }
+    return 'polygon(' + out.join(',') + ')';
+  }
+  [poly(9, .07, 0, 120), poly(6, .12, 0, 120), poly(4, .10, Math.PI, 120), poly(12, .045, 0, 120), poly(5, .09, 0, 120), poly(8, .06, 0, 120)]
+    .forEach(function (s, i) { root.style.setProperty('--shape-' + (i + 1), s); });
+
+  /* ---- Build cards ---- */
+  var grid = document.getElementById('deviceGrid');
+  var html = '';
+  DEVICES.forEach(function (d, i) {
+    html += '<div class="card" data-brand="' + d[0] + '" data-search="' + (d[1] + ' ' + d[2] + ' ' + d[0]).toLowerCase() + '">' +
+      '<div class="card-top">' +
+        '<div class="art" style="--s:var(--shape-' + ((i % 6) + 1) + ')"><img src="' + d[2] + '.webp" alt="' + d[1] + '" loading="lazy"></div>' +
+        '<h3 class="device-name">' + d[1] + '</h3><span class="codename">' + d[2] + '</span>' +
+      '</div>' +
+      '<button class="btn btn-filled" type="button"><span class="ms">download</span>Download</button>' +
+    '</div>';
+  });
+  grid.innerHTML = html;
+
+  var cards = Array.prototype.slice.call(grid.children);
+  var searchInput = document.getElementById('searchInput');
+  var searchWrap = document.getElementById('searchWrap');
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var statusEl = document.getElementById('status');
+  var emptyEl = document.getElementById('empty');
+
+  /* brand counts on chips */
+  filterBtns.forEach(function (b) {
+    var f = b.dataset.filter;
+    var n = f === 'all' ? DEVICES.length : DEVICES.filter(function (d) { return d[0] === f; }).length;
+    b.querySelector('.n').textContent = n;
+  });
+
+  function applyFilters() {
+    var q = searchInput.value.trim().toLowerCase();
+    var active = document.querySelector('.filter-btn.active').dataset.filter;
+    var shown = 0;
+    searchWrap.classList.toggle('has-text', q.length > 0);
+
+    cards.forEach(function (c) {
+      var ok = (active === 'all' || c.dataset.brand === active) && c.dataset.search.indexOf(q) !== -1;
+      c.classList.remove('pop');
+      c.classList.toggle('hidden', !ok);
+      if (ok) { c.style.setProperty('--d', Math.min(shown, 14) * 30 + 'ms'); shown++; }
+    });
+    void grid.offsetWidth; /* restart animation */
+    cards.forEach(function (c) { if (!c.classList.contains('hidden')) c.classList.add('pop'); });
+
+    emptyEl.classList.toggle('show', shown === 0);
+    statusEl.textContent = shown === 0 ? '' : 'Showing ' + shown + (shown === 1 ? ' device' : ' devices');
+  }
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filterBtns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      applyFilters();
+    });
+  });
+  searchInput.addEventListener('input', applyFilters);
+  document.getElementById('clearBtn').addEventListener('click', function () { searchInput.value = ''; searchInput.focus(); applyFilters(); });
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    searchInput.value = '';
+    filterBtns.forEach(function (b) { b.classList.toggle('active', b.dataset.filter === 'all'); });
+    applyFilters();
+  });
+  applyFilters();
+
+  /* ---- "Soon" dialog ---- */
+  var modal = document.getElementById('modalOverlay');
+  var btnClose = document.getElementById('btnClose');
+  var lastFocus = null;
+  function openModal(trigger) {
+    lastFocus = trigger; modal.classList.add('active'); modal.setAttribute('aria-hidden', 'false');
+    setTimeout(function () { btnClose.focus(); }, 50);
+  }
+  function closeModal() {
+    modal.classList.remove('active'); modal.setAttribute('aria-hidden', 'true');
+    if (lastFocus) lastFocus.focus();
+  }
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.btn');
+    if (b) openModal(b);
+  });
+  btnClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+  /* ---- Theme toggle (shared with home page) ---- */
+  var icon = document.getElementById('themeIcon');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  function syncTheme() {
+    var light = root.getAttribute('data-theme') === 'light';
+    icon.textContent = light ? 'dark_mode' : 'light_mode';
+    meta.setAttribute('content', light ? '#ffffff' : '#000000');
+  }
+  syncTheme();
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('zen-theme', next); } catch (e) {}
+    syncTheme();
+  });
+
+  /* ---- Elevate top bar on scroll ---- */
+  var bar = document.getElementById('topbar');
+  function onScroll() { bar.classList.toggle('scrolled', window.scrollY > 12); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
 </body>
 </html>
