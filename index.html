@@ -345,35 +345,6 @@ h2.title .dim { color: var(--outline); }
   font-size: .85rem; font-weight: 600;
 }
 
-/* ---------- Team ---------- */
-.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
-.team-card {
-  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
-  padding: 36px 24px 32px;
-  background: var(--surface-container);
-  border-radius: 36px;
-  box-shadow: inset 0 0 0 1px var(--outline-variant);
-  transition: transform .6s var(--spring), border-radius .6s var(--spring), background-color .3s;
-}
-.team-card:nth-child(3n+1) { border-radius: 44px 20px 44px 20px; }
-.team-card:nth-child(3n+2) { border-radius: 20px 44px 20px 44px; }
-.team-card:hover { transform: translateY(-8px); border-radius: 48px; background: var(--surface-high); }
-.avatar {
-  width: 124px; height: 124px; margin-bottom: 18px; overflow: hidden;
-  background: var(--primary-container);
-  clip-path: var(--shape, none); border-radius: 50%;
-  transition: transform 1s var(--spring);
-}
-.team-card:hover .avatar { transform: rotate(18deg) scale(1.08); }
-.team-card:hover .avatar img { transform: rotate(-18deg) scale(1.1); }
-.avatar img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--spring); }
-.team-card h4 { font-size: 1.3rem; letter-spacing: -.01em; font-variation-settings: 'wdth' 105, 'wght' 700; }
-.role {
-  margin-top: 6px; padding: 5px 14px; border-radius: 999px;
-  background: var(--secondary-container); color: var(--on-secondary-container);
-  font-size: .8rem; font-weight: 600;
-}
-
 /* ---------- FAQ ---------- */
 .faq-list { display: grid; gap: 10px; max-width: 880px; margin-inline: auto; }
 .faq-item {
